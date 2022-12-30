@@ -1,13 +1,15 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+// To learn more about WinUI, the WinUI project structure,
+// and more about our project templates, see: http://aka.ms/winui-project-info.
+
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 using ModernBox.Models;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace ModernBox.Views.CommonControl
 {
@@ -17,46 +19,98 @@ namespace ModernBox.Views.CommonControl
         {
             this.InitializeComponent();
             this.DataContext = this;
+            WeakReferenceMessenger.Default.Register<String, String>(this, "WidgetSettingMessage", (r,e) =>
+            {
+                try
+                {
+                    switch (e)
+                    {
+                        case "Save":
+                            if (ContentFrame.BackStackDepth > 0)
+                            {
+                                ContentFrame.GoBack();
+                            }
+                            break;
+                        case "Cancel":
+
+                            if (ContentFrame.BackStackDepth > 0)
+                            {
+                                ContentFrame.GoBack();
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message);
+                }
+            });
         }
+
+       
+        
 
         public Object? CacheWidget
         {
-            get;set;
+            get; set;
         }
 
-        public Object? WidgetContent
+        public Type WidgetContent
         {
-            get => (Object)GetValue(WidgetContentProperty);
+            get => (Type)GetValue(WidgetContentProperty);
             set => SetValue(WidgetContentProperty, value);
         }
 
-        public Object? WidgetConfigContent
+        public Type WidgetConfigContent
         {
-            get;
-            set;
+            get => (Type)GetValue(WidgetConfigContentProperty);
+            set => SetValue(WidgetConfigContentProperty, value);
         }
 
         public String? WidgetName
         {
-            get; set;
+            get => (String)GetValue(WidgetNameProperty);
+            set => SetValue(WidgetNameProperty, value);
         }
 
         public String? WidgetIcon
         {
-            get; set;
+            get => (String)GetValue(WidgetIconProperty);
+            set => SetValue(WidgetIconProperty, value);
         }
 
         public String? ClassName
         {
-            get; set;
+            get => (String)GetValue(ClassNameProperty);
+            set => SetValue(ClassNameProperty, value);
         }
 
-        public WidgetSize? WidgetSize
+        public WidgetSize WidgetSize
         {
-            get; set;
+            get => (WidgetSize)GetValue(WidgetSizeProperty);
+            set => SetValue(WidgetSizeProperty, value);
         }
 
-        
+        public ICommand Command
+        {
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
+        }
+
+        public object CommandParamter
+        {
+            get => (ICommand)GetValue(CommandParamterProperty);
+            set => SetValue(CommandParamterProperty, value);
+        }
+
+        public System.Windows.IInputElement CommandTarget
+        {
+            get => (System.Windows.IInputElement)GetValue(CommandTargetProperty);
+            set => SetValue(CommandTargetProperty, value);
+        }
 
         public static readonly DependencyProperty ClassNameProperty =
           DependencyProperty.Register("ClassName", typeof(String), typeof(BaseWidget), new PropertyMetadata(String.Empty));
@@ -68,15 +122,27 @@ namespace ModernBox.Views.CommonControl
             DependencyProperty.Register("WidgetName", typeof(String), typeof(BaseWidget), new PropertyMetadata(String.Empty));
 
         public static readonly DependencyProperty WidgetContentProperty =
-          DependencyProperty.Register("WidgetContent", typeof(object), typeof(BaseWidget), new PropertyMetadata(null));
+          DependencyProperty.Register("WidgetContent", typeof(Type), typeof(BaseWidget), new PropertyMetadata(null));
 
         public static readonly DependencyProperty WidgetConfigContentProperty =
-        DependencyProperty.Register("WidgetConfigContent", typeof(object), typeof(BaseWidget), new PropertyMetadata(null));
+        DependencyProperty.Register("WidgetConfigContent", typeof(Type), typeof(BaseWidget), new PropertyMetadata(null));
 
         public static readonly DependencyProperty WidgetSizeProperty =
-            DependencyProperty.Register("WidgetSize", typeof(Enum), typeof(BaseWidget), new PropertyMetadata(0));
+            DependencyProperty.Register("WidgetSize", typeof(Enum), typeof(BaseWidget), new PropertyMetadata(default(BaseWidget)));
 
+        public static readonly DependencyProperty CommandProperty
+            = DependencyProperty.Register("Command", typeof(ICommand), typeof(BaseWidget),
+                new PropertyMetadata(null, (defaultValue, callBack) =>
+                {
+                    
+                }));
 
+        public static readonly DependencyProperty CommandParamterProperty
+            = DependencyProperty.Register("CommandParamter", typeof(object), typeof(BaseWidget), null);
+
+        public static readonly DependencyProperty CommandTargetProperty
+            = DependencyProperty.Register("CommandTarget", typeof(System.Windows.IInputElement), typeof(BaseWidget),
+                new PropertyMetadata(null));
 
         private void btn_small_Click(object sender, RoutedEventArgs e)
         {
@@ -84,6 +150,8 @@ namespace ModernBox.Views.CommonControl
             btn_big.IsChecked = false;
             btn_small.IsChecked = true;
             //
+            this.WidgetSize = Models.WidgetSize.Small;  
+            WeakReferenceMessenger.Default.Send<String, String>(this.WidgetSize.ToString(), "RefreshWidgets");
         }
 
         private void btn_middle_Click(object sender, RoutedEventArgs e)
@@ -91,6 +159,8 @@ namespace ModernBox.Views.CommonControl
             btn_small.IsChecked = false;
             btn_big.IsChecked = false;
             btn_middle.IsChecked = true;
+            this.WidgetSize = Models.WidgetSize.Middle;
+            WeakReferenceMessenger.Default.Send<String, String>(this.WidgetSize.ToString(), "RefreshWidgets");
         }
 
         private void btn_big_Click(object sender, RoutedEventArgs e)
@@ -98,23 +168,24 @@ namespace ModernBox.Views.CommonControl
             btn_middle.IsChecked = false;
             btn_small.IsChecked = false;
             btn_big.IsChecked = true;
+            this.WidgetSize = Models.WidgetSize.Big;
+            WeakReferenceMessenger.Default.Send<String, String>(this.WidgetSize.ToString(), "RefreshWidgets");
         }
 
         private void btn_edit_Click(object sender, RoutedEventArgs e)
         {
-
-            //this.CacheWidget = WidgetContent;
-            //this.WidgetContent = WidgetConfigContent;
+     
+            ContentFrame.Navigate(this.WidgetConfigContent, null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
             
-            ContentFrame.Navigate(
-                this.WidgetConfigContent.GetType(),
-                null, 
-                new SuppressNavigationTransitionInfo());
         }
 
         private void btn_remove_Click(object sender, RoutedEventArgs e)
         {
+        }
 
+        private void ContentFrame_Loading(FrameworkElement sender, object args)
+        {
+            ContentFrame.Navigate(this.WidgetContent, null, new DrillInNavigationTransitionInfo());
         }
     }
 }

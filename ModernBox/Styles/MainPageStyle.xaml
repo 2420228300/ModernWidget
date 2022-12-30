@@ -32,14 +32,15 @@
 
     <DataTemplate x:Key="StaggeredTemplate" x:DataType="model:Widget">
         <common:BaseWidget
-            WidgetConfigContent="{x:Bind WidgetConfigContent}"
-            WidgetName="{x:Bind WidgetName}"
-            WidgetSize="{x:Bind WidgetSize}" />
+            WidgetConfigContent="{Binding WidgetConfigContent}"
+            WidgetContent="{Binding WidgetContent}"
+            WidgetName="{Binding WidgetName}"
+            WidgetSize="{Binding WidgetSize, Mode=TwoWay}" />
         <!--
             WidgetConfigContent="{x:Bind WidgetConfigContent}"
             WidgetContent="{x:Bind WidgetContent}"
         -->
-        
+
     </DataTemplate>
     <c:ActivityFeedLayout
         x:Key="MyFeedLayout"

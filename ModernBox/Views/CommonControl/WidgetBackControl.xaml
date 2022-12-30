@@ -1,0 +1,30 @@
+<!--  Copyright (c) Microsoft Corporation and Contributors.  -->
+<!--  Licensed under the MIT License.  -->
+
+<UserControl
+    x:Class="ModernBox.Views.CommonControl.WidgetBackControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:ModernBox.Views.CommonControl"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid HorizontalAlignment="Center" ColumnSpacing="100">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Button
+            Name="btnSaveWidgetConfig"
+            x:Uid="WidgetBackBtnSave"
+            Grid.Column="0"
+            Click="btnSaveWidgetConfig_Click"
+            Style="{StaticResource AccentButtonStyle}" />
+        <Button
+            Name="btnCalcelConfig"
+            x:Uid="WidgetBackBtnCancel"
+            Grid.Column="1"
+            Click="btnCalcelConfig_Click" />
+    </Grid>
+</UserControl>

@@ -28,6 +28,7 @@
     <None Remove="Views\AddWidget.xaml" />
     <None Remove="Views\CommonControl\BackControl.xaml" />
     <None Remove="Views\CommonControl\BaseWidget.xaml" />
+    <None Remove="Views\CommonControl\WidgetBackControl.xaml" />
     <None Remove="Views\SettingPage.xaml" />
     <None Remove="Views\Widgets\TestWidget.xaml" />
     <None Remove="Views\Widgets\TestWidget\TestWidgetIndexPage.xaml" />
@@ -57,6 +58,9 @@
     <None Update="Assets\fonts\TsangerYuYangT_W01_W01.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Page Update="Views\CommonControl\WidgetBackControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Views\Widgets\TestWidget\TestWidgetSettingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

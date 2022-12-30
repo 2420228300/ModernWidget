@@ -2,10 +2,12 @@
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using ModernBox.Contracts.Services;
 using ModernBox.Models;
 using ModernBox.Services;
 using ModernBox.Views.Widgets;
+using ModernBox.Views.Widgets.TestWidget;
 
 namespace ModernBox.ViewModels;
 
@@ -36,6 +38,13 @@ public class MainViewModel : ObservableRecipient
         settingsDataService = App.GetService<ISettingsDataService>();
         widgetService = App.GetService<IWidgetService>();
         InitWidget();
+
+        WeakReferenceMessenger.Default.Register<String, String>(this,"RefreshWidgets", (r,e) =>
+        {
+            Widgets.Clear();
+            InitWidget();
+            settingsDataService.save();
+        });
     }
 
     private void InitWidget()
@@ -45,8 +54,8 @@ public class MainViewModel : ObservableRecipient
         {
             if (item.State)
             {
-                item.WidgetContent = widgetService.GetSystemWidget(item.ClassName!);
-                item.WidgetConfigContent = widgetService.GetSystemWidgetSetting(item.ClassName!);
+                item.WidgetContent = typeof(TestWidgetIndexPage);
+                item.WidgetConfigContent = typeof(TestWidgetSettingPage);
                 Widgets.Add(item);
             }
         }

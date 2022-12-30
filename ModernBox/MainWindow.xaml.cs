@@ -35,7 +35,7 @@ public sealed partial class MainWindow : WindowEx
         hotKeyManager.KeyPressed += HotKeyManager_KeyPressed;
 
         #endregion set hot  key
-
+       
         AppWindow.SetIcon(Path.Combine(AppContext.BaseDirectory, "Assets/WindowIcon.ico"));
         Title = "AppDisplayName".GetLocalized();
         this.SettingsDataService = App.GetService<ISettingsDataService>();

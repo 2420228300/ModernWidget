@@ -162,4 +162,10 @@
   <data name="WidgetConfigSmall.Text" xml:space="preserve">
     <value>Small</value>
   </data>
+  <data name="WidgetBackBtnCancel.Content" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="WidgetBackBtnSave.Content" xml:space="preserve">
+    <value>Save</value>
+  </data>
 </root>

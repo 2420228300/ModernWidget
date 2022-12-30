@@ -81,13 +81,13 @@ namespace ModernBox.Models
         }
 
         [JsonIgnore]
-        public Object WidgetContent
+        public Type? WidgetContent
         {
             get; set;
         }
 
         [JsonIgnore]
-        public Object? WidgetConfigContent
+        public Type? WidgetConfigContent
         {
             get;
             set;
