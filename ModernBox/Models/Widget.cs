@@ -18,7 +18,7 @@ namespace ModernBox.Models
             get; set;
         }
 
-        public String Icon
+        public Uri WidgetIcon
         {
             get; set;
         }

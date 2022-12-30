@@ -45,11 +45,11 @@ public class SettingsDataService : ISettingsDataService
             {
                 Id = Guid.NewGuid(),
                 WidgetName = "测试组件",
-                Icon = "无",
+                WidgetIcon = new Uri("ms-appx:///Assets/WidgetIcons/widgetDefaultIcon.png"),
                 State = true,
                 ClassName = typeof(TestWidgetIndexPage).FullName,
                 WidgetSize = WidgetSize.Big,
-            });
+            }) ;
             fileService.Save(folderPath, fileName, settingModel);
         }
         else

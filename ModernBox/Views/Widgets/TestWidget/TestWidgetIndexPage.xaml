@@ -12,8 +12,8 @@
     NavigationCacheMode="Required"
     mc:Ignorable="d">
 
-    <Grid>
+    <StackPanel>
+        <Image Width="100" Source="/Assets/WidgetIcons/widget.png" />
         <TextBlock x:Uid="TestWidget" />
-
-    </Grid>
+    </StackPanel>
 </Page>

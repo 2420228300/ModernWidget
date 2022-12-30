@@ -76,9 +76,9 @@ namespace ModernBox.Views.CommonControl
             set => SetValue(WidgetNameProperty, value);
         }
 
-        public String? WidgetIcon
+        public Uri? WidgetIcon
         {
-            get => (String)GetValue(WidgetIconProperty);
+            get => (Uri)GetValue(WidgetIconProperty);
             set => SetValue(WidgetIconProperty, value);
         }
 
@@ -94,29 +94,13 @@ namespace ModernBox.Views.CommonControl
             set => SetValue(WidgetSizeProperty, value);
         }
 
-        public ICommand Command
-        {
-            get => (ICommand)GetValue(CommandProperty);
-            set => SetValue(CommandProperty, value);
-        }
 
-        public object CommandParamter
-        {
-            get => (ICommand)GetValue(CommandParamterProperty);
-            set => SetValue(CommandParamterProperty, value);
-        }
-
-        public System.Windows.IInputElement CommandTarget
-        {
-            get => (System.Windows.IInputElement)GetValue(CommandTargetProperty);
-            set => SetValue(CommandTargetProperty, value);
-        }
 
         public static readonly DependencyProperty ClassNameProperty =
           DependencyProperty.Register("ClassName", typeof(String), typeof(BaseWidget), new PropertyMetadata(String.Empty));
 
         public static readonly DependencyProperty WidgetIconProperty =
-            DependencyProperty.Register("WidgetIcon", typeof(String), typeof(BaseWidget), new PropertyMetadata(String.Empty));
+            DependencyProperty.Register("WidgetIcon", typeof(Uri), typeof(BaseWidget), new PropertyMetadata(null));
 
         public static readonly DependencyProperty WidgetNameProperty =
             DependencyProperty.Register("WidgetName", typeof(String), typeof(BaseWidget), new PropertyMetadata(String.Empty));
@@ -130,19 +114,7 @@ namespace ModernBox.Views.CommonControl
         public static readonly DependencyProperty WidgetSizeProperty =
             DependencyProperty.Register("WidgetSize", typeof(Enum), typeof(BaseWidget), new PropertyMetadata(default(BaseWidget)));
 
-        public static readonly DependencyProperty CommandProperty
-            = DependencyProperty.Register("Command", typeof(ICommand), typeof(BaseWidget),
-                new PropertyMetadata(null, (defaultValue, callBack) =>
-                {
-                    
-                }));
 
-        public static readonly DependencyProperty CommandParamterProperty
-            = DependencyProperty.Register("CommandParamter", typeof(object), typeof(BaseWidget), null);
-
-        public static readonly DependencyProperty CommandTargetProperty
-            = DependencyProperty.Register("CommandTarget", typeof(System.Windows.IInputElement), typeof(BaseWidget),
-                new PropertyMetadata(null));
 
         private void btn_small_Click(object sender, RoutedEventArgs e)
         {

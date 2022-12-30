@@ -13,6 +13,7 @@
 
     <UserControl.Resources>
         <convert:WidgetSizeConvert x:Key="wsc" />
+        <convert:RealWidgetContentHeighConvert x:Key="rwchc" />
     </UserControl.Resources>
 
     <StackPanel
@@ -32,7 +33,13 @@
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <SymbolIcon Grid.Column="0" Symbol="Account" />
+
+                <BitmapIcon
+                    Name="SlicesIcon"
+                    Grid.Column="0"
+                    Width="25"
+                    ShowAsMonochrome="False"
+                    UriSource="{Binding WidgetIcon}" />
                 <TextBlock
                     Grid.Column="1"
                     Margin="8,0,0,0"
@@ -61,7 +68,7 @@
                                 Click="btn_middle_Click"
                                 IsChecked="{Binding WidgetSize, Converter={StaticResource wsc}, ConverterParameter=Middle}">
                                 <MenuFlyoutItem.Icon>
-                                    <FontIcon Glyph="&#xE744;" />
+                                    <FontIcon Glyph="&#xE745;" />
                                 </MenuFlyoutItem.Icon>
                             </ToggleMenuFlyoutItem>
                             <ToggleMenuFlyoutItem
@@ -98,16 +105,18 @@
 
             </Grid>
             <StackPanel Grid.Row="1" Margin="0,4,0,0">
-                <Frame
-                    x:Name="ContentFrame"
-                    CacheSize="10"
-                    Loading="ContentFrame_Loading">
-                    <Frame.ContentTransitions>
-                        <TransitionCollection>
-                            <NavigationThemeTransition />
-                        </TransitionCollection>
-                    </Frame.ContentTransitions>
-                </Frame>
+                <ScrollViewer Height="{Binding Height, Converter={StaticResource rwchc}}">
+                    <Frame
+                        x:Name="ContentFrame"
+                        CacheSize="10"
+                        Loading="ContentFrame_Loading">
+                        <Frame.ContentTransitions>
+                            <TransitionCollection>
+                                <NavigationThemeTransition />
+                            </TransitionCollection>
+                        </Frame.ContentTransitions>
+                    </Frame>
+                </ScrollViewer>
             </StackPanel>
 
         </Grid>
