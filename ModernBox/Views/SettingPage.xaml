@@ -1,0 +1,111 @@
+﻿<Page
+    x:Class="ModernBox.Views.SettingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:commond="using:ModernBox.Views.CommonControl"
+    Background="Transparent"
+    mc:Ignorable="d">
+
+    <Grid Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <commond:BackControl EnableSaveConfig="True"/>
+        </StackPanel>
+        <ScrollViewer
+            Name="scrollViewer"
+            Grid.Row="1"
+            Padding="10"
+            IsVerticalScrollChainingEnabled="True"
+            VerticalScrollBarVisibility="Auto"
+            VerticalScrollMode="Enabled">
+            <StackPanel Orientation="Vertical">
+                <StackPanel>
+                    <StackPanel>
+                        <TextBlock
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Text="Widget Content Size" />
+                    </StackPanel>
+                    <StackPanel Margin="0,10,0,0" HorizontalAlignment="Left">
+                        <Slider
+                            Name="widthSlider"
+                            Width="300"
+                            Header="宽"
+                            Maximum="{Binding settingModel.MaxWidth}"
+                            Minimum="500"
+                            ValueChanged="Slider_ValueChanged"
+                            Value="{Binding settingModel.Width}" />
+                        <Slider
+                            Name="heightSlider"
+                            Width="300"
+                            Header="高"
+                            Maximum="{Binding settingModel.MaxHeight}"
+                            Minimum="500"
+                            SmallChange="10"
+                            StepFrequency="10"
+                            ValueChanged="heightSlider_ValueChanged"
+                            Value="{Binding settingModel.Height}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel>
+                    <StackPanel>
+                        <TextBlock
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Text="Widget Content Margin" />
+                    </StackPanel>
+                    <StackPanel Margin="0,10,0,0" HorizontalAlignment="Left">
+                        <Slider
+                            Name="marginLeftSlider"
+                            Width="300"
+                            Header="左边距"
+                            Maximum="1000"
+                            Minimum="0"
+                            SmallChange="10"
+                            StepFrequency="10"
+                            ValueChanged="marginLeftSlider_ValueChanged"
+                            Value="{Binding settingModel.MarginLeft}" />
+                        <Slider
+                            Name="marginTopSlider"
+                            Width="300"
+                            Header="上边距"
+                            Maximum="1000"
+                            Minimum="0"
+                            SmallChange="10"
+                            StepFrequency="10"
+                            ValueChanged="marginTopSlider_ValueChanged"
+                            Value="{Binding settingModel.MarginTop}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel>
+                    <StackPanel>
+                        <TextBlock
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Text="主题" />
+                    </StackPanel>
+                    <StackPanel Margin="0,10,0,0" HorizontalAlignment="Left">
+                        <RadioButtons
+                            x:Name="BackgroundRadioButtons"
+                            Header="材质"
+                            IsEnabled="False"
+                            MaxColumns="3"
+                            SelectedIndex="0"
+                            SelectionChanged="BackgroundRadioButtons_SelectionChanged">
+                            <x:String>Mica</x:String>
+                            <x:String>Acrylic</x:String>
+                            <x:String>Default</x:String>
+                        </RadioButtons>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

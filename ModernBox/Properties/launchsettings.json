@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "ModernBox (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "ModernBox (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}
