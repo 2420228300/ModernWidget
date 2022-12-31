@@ -9,16 +9,89 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:ModernBox.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="using:ModernBox.Models"
+    xmlns:viewmodels="using:ModernBox.ViewModels"
+    Name="page"
+    d:DataContext="{d:DesignInstance Type=viewmodels:AddWidgetViewModel}"
     Background="Transparent"
     mc:Ignorable="d">
+    <Page.Resources>
 
+        <DataTemplate x:Key="WidgetTemplate" x:DataType="model:Widget">
+            <Grid
+                Name="grid"
+                Width="210"
+                Margin="0,0,16,16"
+                Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
+                CornerRadius="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Image Height="200" Stretch="Fill">
+                        <Image.Source>
+                            <BitmapImage DecodePixelHeight="100" UriSource="/Assets/WidgetIcons/test.png" />
+                        </Image.Source>
+                    </Image>
+                </Grid>
+                <StackPanel Grid.Row="1" Padding="8">
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{Binding WidgetName}" />
+                    <TextBlock Text="{Binding WidgetType}" />
+                    <TextBlock Text="{Binding Description}" />
+                    <Button
+                        Margin="4"
+                        Padding="4"
+                        HorizontalAlignment="Right"
+                        Command="{Binding ElementName=grid, Path=DataContext.widgetDetailsCommand}"
+                        CommandParameter="{Binding ElementName=grid,RelativeSource={RelativeSource Mode=Self},Path=DataContext}">
+                        <Button.Content>
+                            <SymbolIcon Symbol="Forward" />
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="CategoryTemplate" x:DataType="model:WidgetsKind">
+            <StackPanel>
+                <TextBlock
+                    Padding="8"
+                    Style="{StaticResource TitleTextBlockStyle}"
+                    Text="{Binding CategoryName}" />
+                <ItemsRepeater
+                    x:Name="innerRepeater"
+                    ItemTemplate="{StaticResource WidgetTemplate}"
+                    ItemsSource="{Binding CategoryItems}">
+                    <ItemsRepeater.Layout>
+                        <StackLayout Orientation="Horizontal" />
+                    </ItemsRepeater.Layout>
+                </ItemsRepeater>
+            </StackPanel>
+        </DataTemplate>
+
+
+
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <common:BackControl />
-        <TextBlock Grid.Row="1" Text="Add Widget" />
 
+        <Grid Grid.Row="1" Padding="16,0,16,16">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" HorizontalScrollMode="Auto">
+                <ItemsRepeater
+                    x:Name="outerRepeater"
+                    VerticalAlignment="Top"
+                    ItemTemplate="{StaticResource CategoryTemplate}"
+                    ItemsSource="{Binding WidgetCategory}">
+                    <ItemsRepeater.Layout>
+                        <StackLayout Orientation="Vertical" />
+                    </ItemsRepeater.Layout>
+
+                </ItemsRepeater>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Page>

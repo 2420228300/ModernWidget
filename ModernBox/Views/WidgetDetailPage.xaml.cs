@@ -1,5 +1,5 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License. See LICENSE in the project root for license information.
+// Copyright (c) Microsoft Corporation and Contributors.
+// Licensed under the MIT License.
 
 using System;
 using System.Collections.Generic;
@@ -16,6 +16,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using ModernBox.ViewModels;
+using ModernBox.Models;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -25,22 +26,27 @@ namespace ModernBox.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    /// 
-
-
-
-    public sealed partial class AddWidget : Page
+    public sealed partial class WidgetDetailPage : Page
     {
-        public AddWidgetViewModel viewModel
+        public WidgetDetailViewModel viewModel
         {
-            get;
+            get; set;
         }
-
-        public AddWidget()
+        public WidgetDetailPage()
         {
             this.InitializeComponent();
-            viewModel = App.GetService<AddWidgetViewModel>();
-            this.DataContext = viewModel;
+            viewModel = App.GetService<WidgetDetailViewModel>();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Widget widget = e.Parameter as Widget;
+            if (widget != null) { 
+                TB_WidgetDescription.Text = widget.Description;
+                TB_WidgetName.Text = widget.WidgetName;
+                TB_WidgetType.Text = widget.WidgetType;
+                BI_WidgetCover.UriSource = widget.WidgetIcon;
+            }
         }
     }
 }

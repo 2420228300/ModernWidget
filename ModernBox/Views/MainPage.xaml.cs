@@ -18,17 +18,6 @@ public sealed partial class MainPage : Page
         ViewModel = App.GetService<MainViewModel>();
         InitializeComponent();
         this.DataContext= ViewModel;
-
-        //StaggeredRepeater.CanDrag = true;
-        //StaggeredRepeater.DragStarting += StaggeredRepeater_DragStarting;
-       
-
-
     }
 
-    //private void StaggeredRepeater_DragStarting(Microsoft.UI.Xaml.UIElement sender, Microsoft.UI.Xaml.DragStartingEventArgs args)
-    //{
-    //    StaggeredRepeater.InvalidateMeasure();  
-    //    StaggeredRepeater.InvalidateArrange();   
-    //}
 }

@@ -32,6 +32,8 @@
 
     <DataTemplate x:Key="StaggeredTemplate" x:DataType="model:Widget">
         <common:BaseWidget
+            Id="{Binding Id}"
+            State="{Binding State,Mode=TwoWay}"
             WidgetConfigContent="{Binding WidgetConfigContent}"
             WidgetContent="{Binding WidgetContent}"
             WidgetIcon="{Binding WidgetIcon}"

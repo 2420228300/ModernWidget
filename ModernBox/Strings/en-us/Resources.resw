@@ -168,4 +168,7 @@
   <data name="WidgetBackBtnSave.Content" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="BtnGetWidget.Content" xml:space="preserve">
+    <value>Get Widget</value>
+  </data>
 </root>

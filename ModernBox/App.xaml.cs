@@ -79,7 +79,8 @@ public partial class App : Application
             services.AddTransient<SettingPage>();
             services.AddTransient<AddWidgetViewModel>();
             services.AddTransient<AddWidget>();
-
+            services.AddTransient<WidgetDetailViewModel>();
+            services.AddTransient<WidgetDetailPage>();
             // Register Widget
             services.AddTransient<TestWidgetViewModel>();
             services.AddTransient<TestWidgetIndexPage>();

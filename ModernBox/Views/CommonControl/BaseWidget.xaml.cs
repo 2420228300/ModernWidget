@@ -50,8 +50,18 @@ namespace ModernBox.Views.CommonControl
             });
         }
 
-       
-        
+
+        public Guid Id
+        {
+            get => (Guid)GetValue(IdProperty);
+            set => SetValue(IdProperty, value);
+        }
+
+        public Boolean State
+        {
+            get => (Boolean)GetValue(StateProperty);
+            set => SetValue(StateProperty, value);
+        }
 
         public Object? CacheWidget
         {
@@ -94,7 +104,11 @@ namespace ModernBox.Views.CommonControl
             set => SetValue(WidgetSizeProperty, value);
         }
 
+        public static readonly DependencyProperty IdProperty =
+          DependencyProperty.Register("Id", typeof(Guid), typeof(BaseWidget), new PropertyMetadata(Guid.Empty));
 
+        public static readonly DependencyProperty StateProperty =
+         DependencyProperty.Register("State", typeof(Boolean), typeof(BaseWidget), new PropertyMetadata(false));
 
         public static readonly DependencyProperty ClassNameProperty =
           DependencyProperty.Register("ClassName", typeof(String), typeof(BaseWidget), new PropertyMetadata(String.Empty));
@@ -153,6 +167,11 @@ namespace ModernBox.Views.CommonControl
 
         private void btn_remove_Click(object sender, RoutedEventArgs e)
         {
+            if (Id!=Guid.Empty&&State == true)
+            {
+                State = false;
+                WeakReferenceMessenger.Default.Send<String, String>(this.WidgetSize.ToString(), "RefreshWidgets");
+            }
         }
 
         private void ContentFrame_Loading(FrameworkElement sender, object args)

@@ -41,6 +41,7 @@
                     Name="HomeButton"
                     Icon="Home"
                     Style="{StaticResource MinAppBarButtom}" />
+
             </StackPanel>
             <StackPanel Name="center" Grid.Column="1">
                 <!--<TextBlock Text="中间全区域" />-->

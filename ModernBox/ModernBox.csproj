@@ -22,6 +22,7 @@
     <Content Remove="Assets\fonts\TsangerYuYangT_W03_W03.ttf" />
     <Content Remove="Assets\fonts\TsangerYuYangT_W04_W04.ttf" />
     <Content Remove="Assets\fonts\TsangerYuYangT_W05_W05.ttf" />
+    <Content Remove="Assets\WidgetIcons\dev.svg" />
     <Content Remove="Assets\WidgetIcons\test.png" />
     <Content Remove="Assets\WidgetIcons\widget.png" />
     <Content Remove="Assets\WidgetIcons\widgetDefaultIcon.png" />
@@ -33,6 +34,7 @@
     <None Remove="Views\CommonControl\BaseWidget.xaml" />
     <None Remove="Views\CommonControl\WidgetBackControl.xaml" />
     <None Remove="Views\SettingPage.xaml" />
+    <None Remove="Views\WidgetDetailPage.xaml" />
     <None Remove="Views\Widgets\TestWidget.xaml" />
     <None Remove="Views\Widgets\TestWidget\TestWidgetIndexPage.xaml" />
     <None Remove="Views\Widgets\TestWidget\TestWidgetSettingPage.xaml" />
@@ -61,6 +63,9 @@
     <None Update="Assets\fonts\TsangerYuYangT_W01_W01.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\WidgetIcons\dev.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\WidgetIcons\test.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -70,6 +75,9 @@
     <None Update="Assets\WidgetIcons\widgetDefaultIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Page Update="Views\WidgetDetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Views\CommonControl\WidgetBackControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -19,6 +19,7 @@ public class PageService : IPageService
         Configure<MainViewModel, MainPage>();
         Configure<SettingsViewModel, SettingPage>();
         Configure<AddWidgetViewModel, AddWidget>();
+        Configure<WidgetDetailViewModel,WidgetDetailPage>();
     }
 
     public Type GetPageType(string key)

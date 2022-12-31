@@ -67,7 +67,7 @@ public class MainViewModel : ObservableRecipient
         {
             return new RelayCommand(() =>
             {
-                App.GetService<INavigationService>().NavigateTo(typeof(SettingsViewModel).FullName!);
+                App.GetService<INavigationService>().NavigateTo(typeof(SettingsViewModel).FullName!,null,false);
             });
         }
     }
@@ -79,7 +79,7 @@ public class MainViewModel : ObservableRecipient
         {
             return new RelayCommand(() =>
             {       
-                App.GetService<INavigationService>().NavigateTo(typeof(AddWidgetViewModel).FullName!);
+                App.GetService<INavigationService>().NavigateTo(typeof(AddWidgetViewModel).FullName!,null,false);
             });
         }
     }

@@ -1,4 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.UI.Xaml.Media.Animation;
+using ModernBox.Contracts.Services;
+using ModernBox.ViewModels;
+using ModernBox.Views;
 using Newtonsoft.Json;
 
 namespace ModernBox.Models
@@ -71,7 +77,7 @@ namespace ModernBox.Models
             switch (this.WidgetSize)
             {
                 case WidgetSize.Small:
-                    return 100;
+                    return 192;
                 case WidgetSize.Middle:
                     return 400;
                 case WidgetSize.Big:
@@ -101,6 +107,23 @@ namespace ModernBox.Models
         public Boolean IsOther
         {
             get; set;
+        }
+
+        public String WidgetType
+        {
+            get; set;
+        }
+
+
+        public IRelayCommand<Widget> widgetDetailsCommand
+        {
+            get
+            {
+                return new RelayCommand<Widget>((w) =>
+                {
+                    App.GetService<INavigationService>().NavigateTo(typeof(WidgetDetailViewModel).FullName!,w,false);
+                });
+            }
         }
     }
 }
