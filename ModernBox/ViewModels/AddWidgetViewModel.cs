@@ -41,7 +41,7 @@ namespace ModernBox.ViewModels
 
 
             WidgetCategory.Clear();
-            List<Widget> widgets = settingsDataService.getSettings().Widgets;
+            List<Widget> widgets = settingsDataService.getSettings().AllSystemWidgets;
             var enumerable = widgets.GroupBy(w => w.WidgetType);
             foreach(var group in enumerable)
             {

@@ -44,16 +44,6 @@ namespace ModernBox.Services
         }
 
      
-        public object GetSystemWidget(string key)
-        {
-            return widgets[key];
-        }
-
-
-        public Object GetSystemWidgetSetting(string key)
-        {
-            return widgets[$"{key}.SettingContent"];
-        }
 
         Type? IWidgetService.GetSystemWidget(string key)
         {
@@ -63,7 +53,7 @@ namespace ModernBox.Services
             }
             return default;
         }
-        Type IWidgetService.GetSystemWidgetSetting(string key)
+        Type? IWidgetService.GetSystemWidgetSetting(string key)
         {
             if (widgets.ContainsKey($"{key}.SettingContent"))
             {

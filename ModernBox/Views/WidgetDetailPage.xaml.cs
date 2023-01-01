@@ -17,6 +17,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using ModernBox.ViewModels;
 using ModernBox.Models;
+using ModernBox.Contracts.Services;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -28,24 +29,39 @@ namespace ModernBox.Views
     /// </summary>
     public sealed partial class WidgetDetailPage : Page
     {
-        public WidgetDetailViewModel viewModel
+        public WidgetDetailViewModel? viewModel
         {
             get; set;
         }
+
+        private Widget? widget;
+        private readonly ISettingsDataService? settingsDataService;
         public WidgetDetailPage()
         {
             this.InitializeComponent();
             viewModel = App.GetService<WidgetDetailViewModel>();
+            settingsDataService = App.GetService<ISettingsDataService>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Widget widget = e.Parameter as Widget;
+            widget = e.Parameter as Widget;
             if (widget != null) { 
                 TB_WidgetDescription.Text = widget.Description;
                 TB_WidgetName.Text = widget.WidgetName;
                 TB_WidgetType.Text = widget.WidgetType;
                 BI_WidgetCover.UriSource = widget.WidgetIcon;
+            }
+        }
+
+        private void BtnGetWidget_Click(object sender, RoutedEventArgs e)
+        {
+            if (widget!=null)
+            {
+                if (!widget.IsOther)
+                {
+                    settingsDataService!.AddWidget(widget);
+                }
             }
         }
     }

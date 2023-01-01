@@ -42,7 +42,8 @@ public class SettingsDataService : ISettingsDataService
             settingModel.Width = settingModel.MaxWidth / 3;
             settingModel.Height = settingModel.MaxHeight - 20;
             settingModel.Widgets = new List<Widget>();
-            settingModel.Widgets.Add(new Widget()
+            settingModel.AllSystemWidgets = new List<Widget>();
+            settingModel.AllSystemWidgets.Add(new Widget()
             {
                 Id = Guid.NewGuid(),
                 WidgetName = "ModernWidget使用简介",
@@ -55,6 +56,16 @@ public class SettingsDataService : ISettingsDataService
             settingModel.Widgets.Add(new Widget()
             {
                 Id = Guid.NewGuid(),
+                WidgetName = "ModernWidget使用简介",
+                WidgetIcon = new Uri("ms-appx:///Assets/WidgetIcons/widgetDefaultIcon.png"),
+                State = true,
+                WidgetType = "系统组件",
+                ClassName = typeof(TestWidgetIndexPage).FullName,
+                WidgetSize = WidgetSize.Big,
+            });
+            settingModel.AllSystemWidgets.Add(new Widget()
+            {
+                Id = Guid.NewGuid(),
                 WidgetName = "照片盒子",
                 WidgetIcon = new Uri("ms-appx:///Assets/WidgetIcons/PhotoBoxWidget/icon.png"),
                 WidgetType = "图片展示",
@@ -62,6 +73,7 @@ public class SettingsDataService : ISettingsDataService
                 ClassName = typeof(PhotoBoxWidgetIndexPage).FullName,
                 WidgetSize = WidgetSize.Middle,
             });
+
             fileService.Save(folderPath, fileName, settingModel);
         }
         else
@@ -83,4 +95,14 @@ public class SettingsDataService : ISettingsDataService
     {
         this.settingModel = settingModel;
     }
+
+
+    public void AddWidget(Widget widget)
+    {
+        widget.Id = Guid.NewGuid();
+        widget.State = true;
+        settingModel.Widgets.Add(widget);
+        save();
+    }
+    
 }

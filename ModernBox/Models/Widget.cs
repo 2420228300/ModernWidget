@@ -116,6 +116,7 @@ namespace ModernBox.Models
         }
 
 
+        [JsonIgnore]
         public IRelayCommand<Widget> widgetDetailsCommand
         {
             get

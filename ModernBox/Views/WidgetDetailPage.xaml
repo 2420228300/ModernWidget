@@ -46,7 +46,11 @@
                 <TextBlock Name="TB_WidgetDescription" Text="Description" />
             </StackPanel>
             <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                <Button x:Uid="BtnGetWidget" Style="{StaticResource AccentButtonStyle}" />
+                <Button
+                    Name="BtnGetWidget"
+                    x:Uid="BtnGetWidget"
+                    Click="BtnGetWidget_Click"
+                    Style="{StaticResource AccentButtonStyle}" />
             </StackPanel>
         </Grid>
     </Grid>

@@ -13,6 +13,6 @@ public interface ISettingsDataService
     SettingModel getSettings();
 
     void setSettings(SettingModel settingModel);
-
+    void AddWidget(Widget widget);
     void save();
 }
