@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.UI.Xaml.Media.Animation;
+using ModernBox.attr;
 using ModernBox.Contracts.Services;
 using ModernBox.ViewModels;
 using ModernBox.Views;
@@ -56,8 +57,10 @@ namespace ModernBox.Models
         }
 
         [JsonIgnore]
+        [WidthoutCopy]
         public int Width => getWidth(this.WidgetSize);
         [JsonIgnore]
+        [WidthoutCopy]
         public int Height => getHeight(this.WidgetSize);
         private int getWidth(WidgetSize size)
         {

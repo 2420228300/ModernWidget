@@ -9,6 +9,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
+using ModernBox.Contracts.Services;
 using ModernBox.Models;
 
 namespace ModernBox.Views.CommonControl
@@ -169,7 +170,7 @@ namespace ModernBox.Views.CommonControl
         {
             if (Id!=Guid.Empty&&State == true)
             {
-                State = false;
+                App.GetService<ISettingsDataService>().RemoveWidget(Id);
                 WeakReferenceMessenger.Default.Send<String, String>(this.WidgetSize.ToString(), "RefreshWidgets");
             }
         }

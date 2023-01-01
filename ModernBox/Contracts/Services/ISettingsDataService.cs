@@ -15,4 +15,6 @@ public interface ISettingsDataService
     void setSettings(SettingModel settingModel);
     void AddWidget(Widget widget);
     void save();
+
+    Boolean RemoveWidget(Guid guid);
 }

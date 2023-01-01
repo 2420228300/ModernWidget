@@ -99,10 +99,17 @@ public class SettingsDataService : ISettingsDataService
 
     public void AddWidget(Widget widget)
     {
-        widget.Id = Guid.NewGuid();
-        widget.State = true;
-        settingModel.Widgets.Add(widget);
+        var newWidget = ModelCopyAttribute.Copy<Widget, Widget>(widget);
+        newWidget.Id = Guid.NewGuid();
+        newWidget.State = true;
+        settingModel.Widgets.Add(newWidget);
         save();
     }
     
+    public Boolean RemoveWidget(Guid guid)
+    {
+        var v = settingModel.Widgets.RemoveAll(w => w.Id== guid);
+        save(); 
+        return v > 0;
+    }
 }
