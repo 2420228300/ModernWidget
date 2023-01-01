@@ -1,18 +1,19 @@
 ﻿using ModernBox.Contracts.Services;
 using ModernBox.ViewModels.Widgets;
 using ModernBox.Views.Widgets;
+using ModernBox.Views.Widgets.PhotoBoxWidget;
 using ModernBox.Views.Widgets.TestWidget;
 
 namespace ModernBox.Services
 {
     public class WidgetService : IWidgetService
     {
-        private Dictionary<String, Object> widgets;
+        private Dictionary<String, Type> widgets;
 
         public WidgetService()
         {
             widgets
-                = new Dictionary<String, Object>();
+                = new Dictionary<String, Type>();
             Configure();
         }
 
@@ -20,6 +21,9 @@ namespace ModernBox.Services
         {
             ConfigureSystemWidget(typeof(TestWidgetIndexPage).FullName!, typeof(TestWidgetIndexPage));
             ConfigureSystemWidget(getWidgetSettingKey(typeof(TestWidgetIndexPage)),typeof(Views.Widgets.TestWidget.TestWidgetSettingPage));
+
+            ConfigureSystemWidget(typeof(PhotoBoxWidgetIndexPage).FullName!,typeof(PhotoBoxWidgetIndexPage));
+        
         }
 
         public String getWidgetSettingKey(Type type)
@@ -31,15 +35,7 @@ namespace ModernBox.Services
         {
             if (!widgets.ContainsKey(key))
             {
-                var instance = Activator.CreateInstance(type);
-                if (instance!=null)
-                {
-                    widgets.Add(key, instance);
-                }
-                else
-                {
-                    throw new NullReferenceException();
-                }
+                widgets.Add(key, type);
             }
             else
             {
@@ -59,7 +55,21 @@ namespace ModernBox.Services
             return widgets[$"{key}.SettingContent"];
         }
 
-
-
+        Type? IWidgetService.GetSystemWidget(string key)
+        {
+            if (widgets.ContainsKey(key))
+            {
+                return widgets[key];
+            }
+            return default;
+        }
+        Type IWidgetService.GetSystemWidgetSetting(string key)
+        {
+            if (widgets.ContainsKey($"{key}.SettingContent"))
+            {
+                return widgets[$"{key}.SettingContent"];
+            }
+            return default;
+        }
     }
 }

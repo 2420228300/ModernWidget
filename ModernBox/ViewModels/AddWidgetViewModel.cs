@@ -45,10 +45,27 @@ namespace ModernBox.ViewModels
             var enumerable = widgets.GroupBy(w => w.WidgetType);
             foreach(var group in enumerable)
             {
+                var temp_widgets = group.Select(w =>
+                {
+                    if (w.Cover==null||!File.Exists(w.Cover.AbsolutePath))
+                    {
+                        var baseDirectory = AppContext.BaseDirectory;
+                        var widgetDefaultAssets = Path.Combine(baseDirectory, "Assets", "WidgetDefaultCover");
+                        DirectoryInfo directoryInfo= new DirectoryInfo(widgetDefaultAssets);
+                        var fileInfos = directoryInfo.GetFiles();
+                        if (fileInfos.Length>0)
+                        {
+                            Random random = new Random();
+                            w.Cover = new Uri(fileInfos[random.Next(0, fileInfos.Length)].FullName);
+                        }
+                    }
+                    return w;
+                }).ToList();
+
                 WidgetCategory.Add(new WidgetsKind()
                 {
                     CategoryName = group.Key,
-                    CategoryItems = group.ToList()
+                    CategoryItems = temp_widgets
                 });
             }
         }

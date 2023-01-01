@@ -31,7 +31,7 @@
                 <Grid Grid.Row="0">
                     <Image Height="200" Stretch="Fill">
                         <Image.Source>
-                            <BitmapImage DecodePixelHeight="100" UriSource="/Assets/WidgetIcons/test.png" />
+                            <BitmapImage DecodePixelHeight="100" UriSource="{Binding Cover}" />
                         </Image.Source>
                     </Image>
                 </Grid>
@@ -44,7 +44,7 @@
                         Padding="4"
                         HorizontalAlignment="Right"
                         Command="{Binding ElementName=grid, Path=DataContext.widgetDetailsCommand}"
-                        CommandParameter="{Binding ElementName=grid,RelativeSource={RelativeSource Mode=Self},Path=DataContext}">
+                        CommandParameter="{Binding ElementName=grid, RelativeSource={RelativeSource Mode=Self}, Path=DataContext}">
                         <Button.Content>
                             <SymbolIcon Symbol="Forward" />
                         </Button.Content>

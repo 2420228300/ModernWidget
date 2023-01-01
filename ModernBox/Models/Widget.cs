@@ -40,7 +40,7 @@ namespace ModernBox.Models
             get; set;
         }
 
-        public String Cover
+        public Uri Cover
         {
             get; set;
         }
@@ -55,8 +55,9 @@ namespace ModernBox.Models
             get; set;
         }
 
+        [JsonIgnore]
         public int Width => getWidth(this.WidgetSize);
-
+        [JsonIgnore]
         public int Height => getHeight(this.WidgetSize);
         private int getWidth(WidgetSize size)
         {

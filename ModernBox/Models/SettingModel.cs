@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace ModernBox.Models;
 public class SettingModel
@@ -27,6 +28,7 @@ public class SettingModel
         get; set;
     }
 
+
     public int Width
     {
         get; set;
@@ -41,4 +43,8 @@ public class SettingModel
     {
         get; set;
     }
+
+    public List<Widget> AllSystemWidgets
+    {
+    get; set; }
 }

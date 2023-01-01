@@ -12,8 +12,10 @@ using ModernBox.Notifications;
 using ModernBox.Services;
 using ModernBox.ViewModels;
 using ModernBox.ViewModels.Widgets;
+using ModernBox.ViewModels.Widgets.PhotoBoxWidget;
 using ModernBox.Views;
 using ModernBox.Views.Widgets;
+using ModernBox.Views.Widgets.PhotoBoxWidget;
 using ModernBox.Views.Widgets.TestWidget;
 using Windows.ApplicationModel;
 
@@ -84,7 +86,8 @@ public partial class App : Application
             // Register Widget
             services.AddTransient<TestWidgetViewModel>();
             services.AddTransient<TestWidgetIndexPage>();
-
+            services.AddTransient<PhotoBoxWidgetViewModel>();
+            services.AddTransient<PhotoBoxWidgetIndexPage>();
             // Configuration
             services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
         }).

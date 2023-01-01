@@ -54,8 +54,8 @@ public class MainViewModel : ObservableRecipient
         {
             if (item.State)
             {
-                item.WidgetContent = typeof(TestWidgetIndexPage);
-                item.WidgetConfigContent = typeof(TestWidgetSettingPage);
+                item.WidgetContent = widgetService.GetSystemWidget(item.ClassName!);
+                item.WidgetConfigContent = widgetService.GetSystemWidgetSetting(item.ClassName!);
                 Widgets.Add(item);
             }
         }

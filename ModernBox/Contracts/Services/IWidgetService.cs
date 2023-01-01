@@ -8,10 +8,15 @@ namespace ModernBox.Contracts.Services
 {
     public interface IWidgetService
     {
-        Object GetSystemWidget(string key);
+        //Object GetSystemWidget(string key);
 
         void ConfigureSystemWidget(String key, Type type);
 
-        Object GetSystemWidgetSetting(string key);
+        //Object GetSystemWidgetSetting(string key);
+
+
+        Type  GetSystemWidget(string key);
+
+        Type GetSystemWidgetSetting(string key);
     }
 }

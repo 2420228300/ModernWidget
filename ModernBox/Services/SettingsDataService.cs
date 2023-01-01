@@ -2,6 +2,7 @@
 using ModernBox.Core.Contracts.Services;
 using ModernBox.Helpers;
 using ModernBox.Models;
+using ModernBox.Views.Widgets.PhotoBoxWidget;
 using ModernBox.Views.Widgets.TestWidget;
 
 namespace ModernBox.Services;
@@ -44,12 +45,23 @@ public class SettingsDataService : ISettingsDataService
             settingModel.Widgets.Add(new Widget()
             {
                 Id = Guid.NewGuid(),
-                WidgetName = "测试组件",
+                WidgetName = "ModernWidget使用简介",
                 WidgetIcon = new Uri("ms-appx:///Assets/WidgetIcons/widgetDefaultIcon.png"),
                 State = true,
+                WidgetType= "系统组件",
                 ClassName = typeof(TestWidgetIndexPage).FullName,
                 WidgetSize = WidgetSize.Big,
             }) ;
+            settingModel.Widgets.Add(new Widget()
+            {
+                Id = Guid.NewGuid(),
+                WidgetName = "照片盒子",
+                WidgetIcon = new Uri("ms-appx:///Assets/WidgetIcons/PhotoBoxWidget/icon.png"),
+                WidgetType = "图片展示",
+                State = true,
+                ClassName = typeof(PhotoBoxWidgetIndexPage).FullName,
+                WidgetSize = WidgetSize.Middle,
+            });
             fileService.Save(folderPath, fileName, settingModel);
         }
         else
