@@ -38,7 +38,9 @@
     <None Remove="Views\CommonControl\BackControl.xaml" />
     <None Remove="Views\CommonControl\BaseWidget.xaml" />
     <None Remove="Views\CommonControl\WidgetBackControl.xaml" />
+    <None Remove="Views\LoadingPage.xaml" />
     <None Remove="Views\SettingPage.xaml" />
+    <None Remove="Views\TempPage.xaml" />
     <None Remove="Views\WidgetDetailPage.xaml" />
     <None Remove="Views\Widgets\PhotoBoxWidget\PhotoBoxWidgetIndexPage.xaml" />
     <None Remove="Views\Widgets\TestWidget.xaml" />
@@ -111,6 +113,12 @@
     <None Update="Assets\WidgetIcons\widgetDefaultIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Page Update="Views\TempPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Views\LoadingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="Views\Widgets\PhotoBoxWidget\PhotoBoxWidgetIndexPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

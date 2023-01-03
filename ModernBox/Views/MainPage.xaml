@@ -59,6 +59,7 @@
                     Style="{StaticResource MinAppBarButtom}" />
                 <AppBarButton
                     Name="RefreshWidget"
+                    Command="{Binding RefreshWidgetCommand}"
                     Icon="Refresh"
                     Style="{StaticResource MinAppBarButtom}" />
                 <AppBarButton

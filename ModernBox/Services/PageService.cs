@@ -20,6 +20,7 @@ public class PageService : IPageService
         Configure<SettingsViewModel, SettingPage>();
         Configure<AddWidgetViewModel, AddWidget>();
         Configure<WidgetDetailViewModel,WidgetDetailPage>();
+        Configure<TempPageViewModel,TempPage>();
     }
 
     public Type GetPageType(string key)

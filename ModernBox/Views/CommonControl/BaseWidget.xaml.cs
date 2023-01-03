@@ -170,8 +170,9 @@ namespace ModernBox.Views.CommonControl
         {
             if (Id!=Guid.Empty&&State == true)
             {
+                this.State = false;
                 App.GetService<ISettingsDataService>().RemoveWidget(Id);
-                WeakReferenceMessenger.Default.Send<String, String>(this.WidgetSize.ToString(), "RefreshWidgets");
+                WeakReferenceMessenger.Default.Send<String, String>("RemoveWidget", "RefreshWidgets");
             }
         }
 

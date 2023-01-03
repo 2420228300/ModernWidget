@@ -1,20 +1,16 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using ModernBox.Contracts.Services;
 using ModernBox.Models;
-using ModernBox.Services;
-using ModernBox.Views.Widgets;
-using ModernBox.Views.Widgets.TestWidget;
 
 namespace ModernBox.ViewModels;
 
 public class MainViewModel : ObservableRecipient
 {
-
     private ObservableCollection<Widget> widgets;
+
     public ObservableCollection<Widget> Widgets
     {
         get => widgets;
@@ -39,11 +35,22 @@ public class MainViewModel : ObservableRecipient
         widgetService = App.GetService<IWidgetService>();
         InitWidget();
 
-        WeakReferenceMessenger.Default.Register<String, String>(this,"RefreshWidgets", (r,e) =>
+        WeakReferenceMessenger.Default.Register<String, String>(this, "RefreshWidgets", (r, e) =>
         {
-            Widgets.Clear();
-            InitWidget();
-            settingsDataService.save();
+            switch (e.ToString())
+            {
+                //TODO 删除组件导致Widget的内容区域改变，未找到原因
+                case "RemoveWidget":
+                    App.GetService<INavigationService>().NavigateTo(typeof(TempPageViewModel).FullName!, null, true);
+                    App.GetService<INavigationService>().NavigateTo(typeof(MainViewModel).FullName!, null, true);
+                    break;
+
+                default:
+                    Widgets.Clear();
+                    InitWidget();
+                    settingsDataService.save();
+                    break;
+            }
         });
     }
 
@@ -61,26 +68,22 @@ public class MainViewModel : ObservableRecipient
         }
     }
 
-    public IRelayCommand settingCommand
-    {
-        get
-        {
-            return new RelayCommand(() =>
+    public IRelayCommand settingCommand => 
+        new RelayCommand(() =>
+             {
+                 App.GetService<INavigationService>().NavigateTo(typeof(SettingsViewModel).FullName!, null, false);
+             });
+
+    public IRelayCommand addWidgetCommand =>
+        new RelayCommand(() =>
             {
-                App.GetService<INavigationService>().NavigateTo(typeof(SettingsViewModel).FullName!,null,false);
+                App.GetService<INavigationService>().NavigateTo(typeof(AddWidgetViewModel).FullName!, null, false);
             });
-        }
-    }
 
-
-    public IRelayCommand addWidgetCommand
-    {
-        get
-        {
-            return new RelayCommand(() =>
-            {       
-                App.GetService<INavigationService>().NavigateTo(typeof(AddWidgetViewModel).FullName!,null,false);
+    public IRelayCommand RefreshWidgetCommand => 
+        new RelayCommand(() =>
+            {
+                App.GetService<INavigationService>().NavigateTo(typeof(TempPageViewModel).FullName!, null, true);
+                App.GetService<INavigationService>().NavigateTo(typeof(MainViewModel).FullName!, null, true);
             });
-        }
-    }
 }
