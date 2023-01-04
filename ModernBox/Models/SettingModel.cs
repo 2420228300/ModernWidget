@@ -39,6 +39,8 @@ public class SettingModel
         get; set;
     }
 
+    public int WidgetCornerRadius { get; set; } = 8;
+
     public List<Widget> Widgets
     {
         get; set;

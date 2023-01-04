@@ -105,6 +105,18 @@ namespace ModernBox.Views.CommonControl
             set => SetValue(WidgetSizeProperty, value);
         }
 
+        public Visibility HasTitleBar
+        {
+            get => (Visibility)GetValue(HasTitleBarProperty);
+            set => SetValue(HasTitleBarProperty, value);
+        }
+
+        public Thickness WidgetPadding
+        {
+            get => (Thickness)GetValue(WidgetPaddingProperty);
+            set => SetValue(WidgetPaddingProperty, value);
+        }
+
         public static readonly DependencyProperty IdProperty =
           DependencyProperty.Register("Id", typeof(Guid), typeof(BaseWidget), new PropertyMetadata(Guid.Empty));
 
@@ -129,10 +141,14 @@ namespace ModernBox.Views.CommonControl
         public static readonly DependencyProperty WidgetSizeProperty =
             DependencyProperty.Register("WidgetSize", typeof(Enum), typeof(BaseWidget), new PropertyMetadata(default(BaseWidget)));
 
-
-
+        public static readonly DependencyProperty HasTitleBarProperty =
+           DependencyProperty.Register("HasTitleBar", typeof(Visibility), typeof(BaseWidget), new PropertyMetadata(Visibility.Visible));
+        
+        public static readonly DependencyProperty WidgetPaddingProperty =
+           DependencyProperty.Register("WidgetPadding", typeof(Thickness), typeof(BaseWidget), new PropertyMetadata(new Thickness(8)));
         private void btn_small_Click(object sender, RoutedEventArgs e)
         {
+
             btn_middle.IsChecked = false;
             btn_big.IsChecked = false;
             btn_small.IsChecked = true;
@@ -161,9 +177,10 @@ namespace ModernBox.Views.CommonControl
 
         private void btn_edit_Click(object sender, RoutedEventArgs e)
         {
-     
-            ContentFrame.Navigate(this.WidgetConfigContent, null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
-            
+            if (WidgetConfigContent!=null)
+            {
+                ContentFrame.Navigate(this.WidgetConfigContent, Id, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+            }
         }
 
         private void btn_remove_Click(object sender, RoutedEventArgs e)
@@ -179,6 +196,12 @@ namespace ModernBox.Views.CommonControl
         private void ContentFrame_Loading(FrameworkElement sender, object args)
         {
             ContentFrame.Navigate(this.WidgetContent, null, new DrillInNavigationTransitionInfo());
+        }
+
+        private void btn_hideOpenBar_Click(object sender, RoutedEventArgs e)
+        {
+            this.HasTitleBar = this.HasTitleBar == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+            WeakReferenceMessenger.Default.Send<String, String>("HideTitleBar", "RefreshWidgets");
         }
     }
 }

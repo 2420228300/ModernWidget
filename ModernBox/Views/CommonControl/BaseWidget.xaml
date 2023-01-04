@@ -14,12 +14,13 @@
     <UserControl.Resources>
         <convert:WidgetSizeConvert x:Key="wsc" />
         <convert:RealWidgetContentHeighConvert x:Key="rwchc" />
+        <convert:Visibility2BooleanConvert x:Key="vbc" />
     </UserControl.Resources>
 
     <StackPanel
         Width="{Binding Width}"
         Height="{Binding Height}"
-        Padding="8"
+        Padding="{Binding WidgetPadding}"
         Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
         CornerRadius="4">
         <Grid>
@@ -27,7 +28,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0" Visibility="{Binding HasTitleBar}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
@@ -108,7 +109,7 @@
                 <ScrollViewer Height="{Binding Height, Converter={StaticResource rwchc}}">
                     <Frame
                         x:Name="ContentFrame"
-                        CacheSize="10"
+                        CacheSize="3"
                         Loading="ContentFrame_Loading">
                         <Frame.ContentTransitions>
                             <TransitionCollection>
@@ -116,6 +117,56 @@
                             </TransitionCollection>
                         </Frame.ContentTransitions>
                     </Frame>
+                    <ScrollViewer.ContextFlyout>
+                        <MenuFlyout>
+                            <RadioMenuFlyoutItem
+                                x:Uid="WidgetConfigSmall"
+                                Click="btn_small_Click"
+                                GroupName="Size">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE743;" />
+                                </MenuFlyoutItem.Icon>
+                            </RadioMenuFlyoutItem>
+                            <RadioMenuFlyoutItem
+                                x:Uid="WidgetConfigMiddle"
+                                Click="btn_middle_Click"
+                                GroupName="Size">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE745;" />
+                                </MenuFlyoutItem.Icon>
+                            </RadioMenuFlyoutItem>
+                            <RadioMenuFlyoutItem
+                                x:Uid="WidgetConfigLarge"
+                                Click="btn_big_Click"
+                                GroupName="Size">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE747;" />
+                                </MenuFlyoutItem.Icon>
+                            </RadioMenuFlyoutItem>
+                            <MenuFlyoutSeparator />
+                            <ToggleMenuFlyoutItem
+                                Name="btn_hideOpenBar"
+                                x:Uid="WidgetConfigHideOpenBar"
+                                Click="btn_hideOpenBar_Click"
+                                IsChecked="{Binding HasTitleBar, Converter={StaticResource vbc}}">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE9A9;" />
+                                </MenuFlyoutItem.Icon>
+                            </ToggleMenuFlyoutItem>
+                            <MenuFlyoutSeparator />
+                            <MenuFlyoutItem x:Uid="WidgetConfigEdit" Click="btn_edit_Click">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE713;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem x:Uid="WidgetConfigRemove" Click="btn_remove_Click">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE74D;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+
+                        </MenuFlyout>
+                    </ScrollViewer.ContextFlyout>
                 </ScrollViewer>
             </StackPanel>
 

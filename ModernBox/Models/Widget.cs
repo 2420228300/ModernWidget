@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Animation;
 using ModernBox.attr;
 using ModernBox.Contracts.Services;
@@ -25,7 +26,7 @@ namespace ModernBox.Models
             get; set;
         }
 
-        public Uri WidgetIcon
+        public Uri? WidgetIcon
         {
             get; set;
         }
@@ -36,17 +37,17 @@ namespace ModernBox.Models
             get; set;
         }
 
-        public String Description
+        public String? Description
         {
             get; set;
         }
 
-        public Uri Cover
+        public Uri? Cover
         {
             get; set;
         }
 
-        public String DllPath
+        public String? DllPath
         {
             get; set;
         }
@@ -113,22 +114,44 @@ namespace ModernBox.Models
             get; set;
         }
 
-        public String WidgetType
+        public String? WidgetType
         {
             get; set;
         }
 
 
-        [JsonIgnore]
-        public IRelayCommand<Widget> widgetDetailsCommand
+        public Visibility HasTitleBar
         {
-            get
-            {
-                return new RelayCommand<Widget>((w) =>
-                {
-                    App.GetService<INavigationService>().NavigateTo(typeof(WidgetDetailViewModel).FullName!,w,false);
-                });
-            }
-        }
+            get; set;
+        } = Visibility.Visible;
+
+        public int LPadding
+        {
+            get; set;
+        } = 8;
+
+        public int TPadding
+        {
+            get; set;
+        } = 8;
+
+        public int RPadding
+        {
+            get; set;
+        } = 8;
+
+        public int BPadding
+        {
+            get; set;
+        } = 8;
+
+        [JsonIgnore]
+        public Thickness WidgetPadding => new(LPadding, TPadding, RPadding, BPadding);
+
+        [JsonIgnore]
+        public IRelayCommand<Widget> widgetDetailsCommand => new RelayCommand<Widget>((w) =>
+                                                                          {
+                                                                              App.GetService<INavigationService>().NavigateTo(typeof(WidgetDetailViewModel).FullName!, w, false);
+                                                                          });
     }
 }

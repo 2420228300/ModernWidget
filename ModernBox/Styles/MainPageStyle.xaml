@@ -32,17 +32,15 @@
 
     <DataTemplate x:Key="StaggeredTemplate" x:DataType="model:Widget">
         <common:BaseWidget
+            HasTitleBar="{Binding HasTitleBar, Mode=TwoWay}"
             Id="{Binding Id}"
-            State="{Binding State,Mode=TwoWay}"
+            State="{Binding State, Mode=TwoWay}"
             WidgetConfigContent="{Binding WidgetConfigContent}"
             WidgetContent="{Binding WidgetContent}"
             WidgetIcon="{Binding WidgetIcon}"
             WidgetName="{Binding WidgetName}"
+            WidgetPadding="{Binding WidgetPadding}"
             WidgetSize="{Binding WidgetSize, Mode=TwoWay}" />
-        <!--
-            WidgetConfigContent="{x:Bind WidgetConfigContent}"
-            WidgetContent="{x:Bind WidgetContent}"
-        -->
 
     </DataTemplate>
     <c:ActivityFeedLayout

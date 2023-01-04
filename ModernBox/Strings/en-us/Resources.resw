@@ -171,4 +171,7 @@
   <data name="BtnGetWidget.Content" xml:space="preserve">
     <value>Get Widget</value>
   </data>
+  <data name="WidgetConfigHideOpenBar.Text" xml:space="preserve">
+    <value>Hide/Open this TitleBar</value>
+  </data>
 </root>
