@@ -14,6 +14,8 @@ public class PhotoBoxWidgetViewModel : ObservableRecipient
         get; set;
     }
 
+
+
     public PhotoBoxWidgetViewModel()
     {
         Pictures = new ObservableCollection<string>();

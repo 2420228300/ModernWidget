@@ -149,30 +149,27 @@ namespace ModernBox.Views.CommonControl
         private void btn_small_Click(object sender, RoutedEventArgs e)
         {
 
-            btn_middle.IsChecked = false;
-            btn_big.IsChecked = false;
-            btn_small.IsChecked = true;
+        
             //
             this.WidgetSize = Models.WidgetSize.Small;  
             WeakReferenceMessenger.Default.Send<String, String>(this.WidgetSize.ToString(), "RefreshWidgets");
+            refreshSvContentHeight();
         }
 
         private void btn_middle_Click(object sender, RoutedEventArgs e)
         {
-            btn_small.IsChecked = false;
-            btn_big.IsChecked = false;
-            btn_middle.IsChecked = true;
+           
             this.WidgetSize = Models.WidgetSize.Middle;
             WeakReferenceMessenger.Default.Send<String, String>(this.WidgetSize.ToString(), "RefreshWidgets");
+            refreshSvContentHeight();
         }
 
         private void btn_big_Click(object sender, RoutedEventArgs e)
         {
-            btn_middle.IsChecked = false;
-            btn_small.IsChecked = false;
-            btn_big.IsChecked = true;
+            
             this.WidgetSize = Models.WidgetSize.Big;
             WeakReferenceMessenger.Default.Send<String, String>(this.WidgetSize.ToString(), "RefreshWidgets");
+            refreshSvContentHeight();
         }
 
         private void btn_edit_Click(object sender, RoutedEventArgs e)
@@ -195,13 +192,39 @@ namespace ModernBox.Views.CommonControl
 
         private void ContentFrame_Loading(FrameworkElement sender, object args)
         {
-            ContentFrame.Navigate(this.WidgetContent, null, new DrillInNavigationTransitionInfo());
+            ContentFrame.Navigate(this.WidgetContent, WidgetSize, new DrillInNavigationTransitionInfo());
+            
         }
 
         private void btn_hideOpenBar_Click(object sender, RoutedEventArgs e)
         {
             this.HasTitleBar = this.HasTitleBar == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
             WeakReferenceMessenger.Default.Send<String, String>("HideTitleBar", "RefreshWidgets");
+        }
+
+        private void SV_Content_Loading(FrameworkElement sender, object args)
+        {
+            refreshSvContentHeight();
+        }
+
+        private void SV_Content_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            refreshSvContentHeight();
+        }
+        private void refreshSvContentHeight()
+        {
+            var sv_contentHeight = calculateRealHeight();
+            SV_Content.Height = sv_contentHeight;
+        }
+
+        public Double calculateRealHeight()
+        {
+            var stackPanelHeight = this.stackPanel.Height;
+            if (this.HasTitleBar == Visibility.Visible)
+            {
+                return stackPanelHeight - 48;
+            }
+            return stackPanelHeight;
         }
     }
 }

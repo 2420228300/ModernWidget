@@ -13,6 +13,9 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+
+using ModernBox.Helpers;
+using ModernBox.Models;
 using ModernBox.ViewModels.Widgets.PhotoBoxWidget;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -36,4 +39,16 @@ public sealed partial class PhotoBoxWidgetIndexPage : Page
         viewModel = App.GetService<PhotoBoxWidgetViewModel>();
         this.DataContext= viewModel;
     }
+
+
+
+    protected override void OnNavigatedTo(NavigationEventArgs e)
+    {
+        var parameter = (WidgetSize)e.Parameter  ;
+        this.Width = WidgetSizeHelper.getWidth(parameter);
+        this.Height = WidgetSizeHelper.getHeight(parameter);
+        
+    }
+
+
 }

@@ -10,27 +10,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Name="page"
     mc:Ignorable="d">
+    <!--<Image
+        VerticalAlignment="Stretch"
+        Source="{Binding Path}"
+        Stretch="UniformToFill" />-->
+    <FlipView
+        x:Name="Gallery"
+        Width="{Binding ElementName=page, Path=Width}"
+        Height="{Binding ElementName=page, Path=Height}"
+        VerticalAlignment="Stretch"
+        ItemsSource="{Binding Pictures}">
+        <FlipView.ItemTemplate>
+            <DataTemplate x:DataType="x:String">
+                <Image Source="{Binding}" Stretch="UniformToFill" />
+            </DataTemplate>
+        </FlipView.ItemTemplate>
+    </FlipView>
 
-    <Grid>
-
-        <StackPanel>
-            <FlipView
-                x:Name="Gallery"
-                Height="300"
-                MaxWidth="400"
-                ItemsSource="{Binding Pictures}">
-                <FlipView.ItemTemplate>
-                    <DataTemplate x:DataType="x:String">
-                        <Image Source="{x:Bind Mode=OneTime}" Stretch="Uniform" />
-                    </DataTemplate>
-                </FlipView.ItemTemplate>
-            </FlipView>
-            <PipsPager
-                x:Name="FlipViewPipsPager"
-                Margin="0,12,0,0"
-                HorizontalAlignment="Center"
-                NumberOfPages="{Binding Pictures.Count}"
-                SelectedPageIndex="{x:Bind Path=Gallery.SelectedIndex, Mode=TwoWay}" />
-        </StackPanel>
-    </Grid>
 </Page>

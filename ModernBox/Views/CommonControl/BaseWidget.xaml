@@ -15,9 +15,11 @@
         <convert:WidgetSizeConvert x:Key="wsc" />
         <convert:RealWidgetContentHeighConvert x:Key="rwchc" />
         <convert:Visibility2BooleanConvert x:Key="vbc" />
+        <convert:ObjectNull2Boollean x:Key="onb" />
     </UserControl.Resources>
 
     <StackPanel
+        Name="stackPanel"
         Width="{Binding Width}"
         Height="{Binding Height}"
         Padding="{Binding WidgetPadding}"
@@ -54,38 +56,39 @@
                     <FontIcon Glyph="&#xE712;" />
                     <Button.Flyout>
                         <MenuFlyout>
-                            <ToggleMenuFlyoutItem
-                                Name="btn_small"
+                            <RadioMenuFlyoutItem
                                 x:Uid="WidgetConfigSmall"
                                 Click="btn_small_Click"
                                 IsChecked="{Binding WidgetSize, Converter={StaticResource wsc}, ConverterParameter=Small}">
+                                GroupName="Size">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE743;" />
                                 </MenuFlyoutItem.Icon>
-                            </ToggleMenuFlyoutItem>
-                            <ToggleMenuFlyoutItem
-                                Name="btn_middle"
+                            </RadioMenuFlyoutItem>
+                            <RadioMenuFlyoutItem
                                 x:Uid="WidgetConfigMiddle"
                                 Click="btn_middle_Click"
                                 IsChecked="{Binding WidgetSize, Converter={StaticResource wsc}, ConverterParameter=Middle}">
+                                GroupName="Size">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE745;" />
                                 </MenuFlyoutItem.Icon>
-                            </ToggleMenuFlyoutItem>
-                            <ToggleMenuFlyoutItem
-                                Name="btn_big"
+                            </RadioMenuFlyoutItem>
+                            <RadioMenuFlyoutItem
                                 x:Uid="WidgetConfigLarge"
                                 Click="btn_big_Click"
+                                GroupName="Size"
                                 IsChecked="{Binding WidgetSize, Converter={StaticResource wsc}, ConverterParameter=Big}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE747;" />
                                 </MenuFlyoutItem.Icon>
-                            </ToggleMenuFlyoutItem>
+                            </RadioMenuFlyoutItem>
                             <MenuFlyoutSeparator />
                             <MenuFlyoutItem
                                 Name="btn_edit"
                                 x:Uid="WidgetConfigEdit"
-                                Click="btn_edit_Click">
+                                Click="btn_edit_Click"
+                                IsEnabled="{Binding WidgetConfigContent, Converter={StaticResource onb}}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE713;" />
                                 </MenuFlyoutItem.Icon>
@@ -105,8 +108,12 @@
                 </Button>
 
             </Grid>
-            <StackPanel Grid.Row="1" Margin="0,4,0,0">
-                <ScrollViewer Height="{Binding Height, Converter={StaticResource rwchc}}">
+            <Grid Grid.Row="1">
+                <ScrollViewer
+                    Name="SV_Content"
+                    Loading="SV_Content_Loading"
+                    SizeChanged="SV_Content_SizeChanged">
+
                     <Frame
                         x:Name="ContentFrame"
                         CacheSize="3"
@@ -122,6 +129,7 @@
                             <RadioMenuFlyoutItem
                                 x:Uid="WidgetConfigSmall"
                                 Click="btn_small_Click"
+                                IsChecked="{Binding WidgetSize, Converter={StaticResource wsc}, ConverterParameter=Small}">
                                 GroupName="Size">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE743;" />
@@ -130,6 +138,7 @@
                             <RadioMenuFlyoutItem
                                 x:Uid="WidgetConfigMiddle"
                                 Click="btn_middle_Click"
+                                IsChecked="{Binding WidgetSize, Converter={StaticResource wsc}, ConverterParameter=Middle}">
                                 GroupName="Size">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE745;" />
@@ -138,7 +147,8 @@
                             <RadioMenuFlyoutItem
                                 x:Uid="WidgetConfigLarge"
                                 Click="btn_big_Click"
-                                GroupName="Size">
+                                GroupName="Size"
+                                IsChecked="{Binding WidgetSize, Converter={StaticResource wsc}, ConverterParameter=Big}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE747;" />
                                 </MenuFlyoutItem.Icon>
@@ -154,7 +164,10 @@
                                 </MenuFlyoutItem.Icon>
                             </ToggleMenuFlyoutItem>
                             <MenuFlyoutSeparator />
-                            <MenuFlyoutItem x:Uid="WidgetConfigEdit" Click="btn_edit_Click">
+                            <MenuFlyoutItem
+                                x:Uid="WidgetConfigEdit"
+                                Click="btn_edit_Click"
+                                IsEnabled="{Binding WidgetConfigContent, Converter={StaticResource onb}}">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon Glyph="&#xE713;" />
                                 </MenuFlyoutItem.Icon>
@@ -168,7 +181,7 @@
                         </MenuFlyout>
                     </ScrollViewer.ContextFlyout>
                 </ScrollViewer>
-            </StackPanel>
+            </Grid>
 
         </Grid>
 

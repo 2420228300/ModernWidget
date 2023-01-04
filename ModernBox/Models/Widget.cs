@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Animation;
 using ModernBox.attr;
 using ModernBox.Contracts.Services;
+using ModernBox.Helpers;
 using ModernBox.ViewModels;
 using ModernBox.Views;
 using Newtonsoft.Json;
@@ -59,37 +60,11 @@ namespace ModernBox.Models
 
         [JsonIgnore]
         [WidthoutCopy]
-        public int Width => getWidth(this.WidgetSize);
+        public int Width => WidgetSizeHelper.getWidth(this.WidgetSize);
         [JsonIgnore]
         [WidthoutCopy]
-        public int Height => getHeight(this.WidgetSize);
-        private int getWidth(WidgetSize size)
-        {
-            switch (this.WidgetSize)
-            {
-                case WidgetSize.Small:
-                    return 300;
-                case WidgetSize.Middle:
-                    return 300;
-                case WidgetSize.Big:
-                    return 300;
-                default: return 100;
-            }
-        }
-
-        private int getHeight(WidgetSize size)
-        {
-            switch (this.WidgetSize)
-            {
-                case WidgetSize.Small:
-                    return 192;
-                case WidgetSize.Middle:
-                    return 400;
-                case WidgetSize.Big:
-                    return 600;
-                default: return 100;
-            }
-        }
+        public int Height => WidgetSizeHelper.getHeight(this.WidgetSize);
+        
 
         [JsonIgnore]
         public Type? WidgetContent
